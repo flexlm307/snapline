@@ -77,6 +77,21 @@ Using ShareX, Greenshot or something else? Add its folder in Settings.
 
 <br>
 
+## Better with Sitch.
+
+[Sitch](https://github.com/flexlm307/Sitch) is a free screenshot editor with fourteen annotation
+tools. When it is on your PC or Mac, Snapline works with it:
+
+- Captures Sitch saves hang on the line by themselves: Snapline watches Sitch's save folder
+  (*Hang captures saved by Sitch* in Settings). Captures Sitch copies are caught like any
+  other clipboard capture.
+- *Edit in Sitch* in a photo's right-click menu opens it in Sitch. Save there, with
+  <kbd>Ctrl</kbd>&thinsp;<kbd>S</kbd> or <kbd>⌘</kbd>&thinsp;<kbd>S</kbd>, writes the marks back
+  into the same file and the photo on the line updates. *Revert to original* in Mark up still
+  brings back the untouched picture.
+
+<br>
+
 ## Read the words off a screenshot.
 
 *Copy text* in the right-click menu reads whatever is written in the capture with the OCR built into

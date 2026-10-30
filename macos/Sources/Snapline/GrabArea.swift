@@ -91,6 +91,7 @@ struct GrabArea: NSViewRepresentable {
                 menu.addItem(ClosureMenuItem(L("Open")) { line.open(id) })
                 menu.addItem(ClosureMenuItem(L("Mark up")) { line.markup(id) })
                 menu.addItem(ClosureMenuItem(L("Mark up with macOS")) { line.markupWithSystem(id) })
+                if Sitch.available { menu.addItem(ClosureMenuItem(L("Edit in Sitch")) { line.editInSitch(id) }) }
                 menu.addItem(ClosureMenuItem(L("Copy text")) { line.copyText(id) })
             }
             menu.addItem(ClosureMenuItem(L("Show in Finder")) { line.reveal(id) })

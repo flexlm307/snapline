@@ -20,6 +20,7 @@
 "New note" = "ملاحظة جديدة";
 "Settings…" = "الإعدادات…";
 "Catch clipboard captures" = "التقاط لقطات الحافظة";
+"Hang captures saved by Sitch" = "تعليق اللقطات التي يحفظها Sitch";
 "Cmd+Ctrl+Shift+4 copies instead of saving; those hang too" = "‏Cmd+Ctrl+Shift+4 ينسخ بدل الحفظ، وهذه تُعلَّق أيضًا";
 "Stay down until each capture is used" = "يبقى الحبل ظاهرًا حتى تُستخدم كل لقطة";
 "Take down after dragging into an app" = "إنزال اللقطة بعد سحبها إلى تطبيق";
@@ -30,6 +31,7 @@
 "Open" = "فتح";
 "Mark up" = "تعليم";
 "Mark up with macOS" = "تعليم بأداة macOS";
+"Edit in Sitch" = "تحرير في Sitch";
 "Show in Finder" = "إظهار في Finder";
 "Keep on the line" = "إبقاء على الحبل";
 "Save to Desktop" = "حفظ على سطح المكتب";

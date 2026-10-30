@@ -126,6 +126,7 @@ public sealed class SettingsWindow : Window
         // Captures
         stack.Children.Add(Heading(Strings.SectionCaptures));
         stack.Children.Add(Check(Strings.CatchClipboard, Strings.CatchClipboardTip, s.CatchClipboard, v => s.CatchClipboard = v));
+        if (Sitch.Installed) stack.Children.Add(Check(Strings.HangSitchCaptures, Strings.HangSitchCapturesTip, s.HangSitchCaptures, v => s.HangSitchCaptures = v));
 
         var inboxRow = new DockPanel { Margin = new Thickness(0, 6, 0, 2) };
         var change = new Button { Content = Strings.Change, Padding = new Thickness(12, 4, 12, 4), Margin = new Thickness(8, 0, 8, 0), VerticalAlignment = VerticalAlignment.Center };

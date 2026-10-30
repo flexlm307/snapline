@@ -236,6 +236,15 @@ final class Line: ObservableObject {
         Markup.shared.edit(item.url)
     }
 
+    /// Opens the photo in Sitch. Its Save writes back into the file and the card reloads.
+    func editInSitch(_ id: UUID) {
+        guard let i = index(of: id) else { return }
+        items[i].used = true
+        // Keep the untouched copy first, so Revert to original in Mark up still works.
+        try? Originals.keep(items[i].url)
+        if !Sitch.edit(items[i].url) { NSSound.beep() }
+    }
+
     /// Moves the file to the Trash and takes the photo off the line.
     func trash(_ id: UUID) {
         guard let item = item(id) else { return }

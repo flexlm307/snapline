@@ -14,6 +14,9 @@ struct Settings: Codable {
     var stayDownWhileUnused = false
     var takeDownAfterDrag = false
     var autoArrange = false
+    /// Captures Sitch saves to its folder hang too, when Sitch is on this Mac. Optional so
+    /// settings files written before it existed still decode; nil means on.
+    var hangSitchCaptures: Bool?
     /// How far below the menu bar the line hangs, in points.
     var lineOffset: Double = 0
     /// A preset name like "bronze", or a hex colour like "#8C5A2E".

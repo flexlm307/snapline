@@ -80,6 +80,10 @@ struct SettingsView: View {
             }
             Section(L("Captures")) {
                 Toggle(L("Catch clipboard captures"), isOn: $s.catchClipboard)
+                if Sitch.installed {
+                    Toggle(L("Hang captures saved by Sitch"), isOn: Binding(
+                        get: { s.hangSitchCaptures ?? true }, set: { s.hangSitchCaptures = $0 }))
+                }
                 Toggle(L("Handle screenshots"), isOn: Binding(get: { Inbox.isEnabled }, set: { on in
                     NotificationCenter.default.post(name: .snaplineInboxToggle, object: on)
                 }))
@@ -110,6 +114,7 @@ struct SettingsView: View {
         .onChange(of: s.appearance) { _, _ in apply() }
         .onChange(of: s.language) { _, _ in apply(); DispatchQueue.main.async { SettingsWindow.rebuild() } }
         .onChange(of: s.catchClipboard) { _, _ in apply() }
+        .onChange(of: s.hangSitchCaptures) { _, _ in apply() }
         .onChange(of: s.soundOn) { _, _ in apply() }
     }
 

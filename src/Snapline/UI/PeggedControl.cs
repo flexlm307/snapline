@@ -542,6 +542,7 @@ public sealed class PeggedControl : Canvas
         {
             menu.Items.Add(MenuItemFor(Strings.Open, () => _line.Open(id)));
             menu.Items.Add(MenuItemFor(Strings.MarkUp, () => _line.Edit(id)));
+            if (Sitch.Available) menu.Items.Add(MenuItemFor(Strings.EditInSitch, () => _line.EditInSitch(id)));
             menu.Items.Add(MenuItemFor(Strings.EditInPaint, () => _line.EditExternal(id)));
             if (Ocr.Available) menu.Items.Add(MenuItemFor(Strings.CopyText, () => _line.CopyText(id)));
         }

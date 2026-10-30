@@ -48,6 +48,8 @@ public static class Strings
     public static string StayDownWhileUnusedTip => L("The line waits while a capture has not been copied, dragged or opened");
     public static string TakeDownAfterDrag => L("Take down after dragging into an app");
     public static string TakeDownAfterDragTip => L("A photo dropped into a chat or an app leaves the line, like one saved to a folder");
+    public static string HangSitchCaptures => L("Hang captures saved by Sitch");
+    public static string HangSitchCapturesTip => L("Watch the folder Sitch saves to, when Sitch is on this PC");
     public static string RevealAtTopEdge => L("Bring the line down when the pointer rests at the top edge");
     public static string RevealAtTopEdgeTip => L("Hold the pointer still against the top of the screen for half a second. Off, the shortcut and the tray icon show the line.");
     public static string OpenScreenshotsFolder => L("Open Screenshots folder");
@@ -64,6 +66,7 @@ public static class Strings
     public static string Edit => L("Edit");
     public static string MarkUp => L("Mark up");
     public static string EditInPaint => L("Edit in Paint");
+    public static string EditInSitch => L("Edit in Sitch");
     public static string Pen => L("Pen");
     public static string Highlighter => L("Highlighter");
     public static string Circle => L("Circle");
@@ -179,6 +182,9 @@ public static class Strings
         ["Edit"] = "تحرير",
         ["Mark up"] = "تعليم",
         ["Edit in Paint"] = "تحرير في الرسام",
+        ["Edit in Sitch"] = "تحرير في Sitch",
+        ["Hang captures saved by Sitch"] = "تعليق اللقطات التي يحفظها Sitch",
+        ["Watch the folder Sitch saves to, when Sitch is on this PC"] = "مراقبة المجلد الذي يحفظ فيه Sitch، عند وجود Sitch على هذا الكمبيوتر",
         ["Pen"] = "قلم",
         ["Highlighter"] = "قلم تمييز",
         ["Circle"] = "دائرة",

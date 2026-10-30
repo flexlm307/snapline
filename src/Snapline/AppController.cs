@@ -118,9 +118,7 @@ public sealed class AppController : IDisposable
     {
         foreach (var w in _watchers) w.Dispose();
         _watchers.Clear();
-        var folders = new List<string> { Shell.ScreenshotsFolder(), Inbox.Folder };
-        folders.AddRange(Settings.Current.WatchFolders.Select(Environment.ExpandEnvironmentVariables));
-        foreach (var folder in folders.Distinct(StringComparer.OrdinalIgnoreCase))
+        foreach (var folder in WatchedFolders())
         {
             var watcher = new ScreenshotWatcher(folder,
                 onNew: path => HangCapture(path, fromFile: true),
@@ -130,6 +128,14 @@ public sealed class AppController : IDisposable
             _watchers.Add(watcher);
             Log.Notice($"Watching {folder}");
         }
+    }
+
+    private static List<string> WatchedFolders()
+    {
+        var folders = new List<string> { Shell.ScreenshotsFolder(), Inbox.Folder };
+        folders.AddRange(Settings.Current.WatchFolders.Select(Environment.ExpandEnvironmentVariables));
+        if (Settings.Current.HangSitchCaptures && Sitch.Installed) folders.Add(Sitch.SaveFolder());
+        return folders.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     private void RegisterHotKey()
@@ -446,10 +452,9 @@ public sealed class AppController : IDisposable
         if (_panel.Display is { } d) _panel.PlaceOn(d);
         if (_hotKey is null || _hotKey.Text != Settings.Current.HotKey) RegisterHotKey();
         _clipboard.Enabled = Settings.Current.CatchClipboard;
-        var wanted = new List<string> { Shell.ScreenshotsFolder(), Inbox.Folder };
-        wanted.AddRange(Settings.Current.WatchFolders.Select(Environment.ExpandEnvironmentVariables));
+        var wanted = WatchedFolders();
         var current = _watchers.Select(w => w.Folder).ToList();
-        if (!wanted.Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(x => x).SequenceEqual(current.OrderBy(x => x), StringComparer.OrdinalIgnoreCase)) StartWatchers();
+        if (!wanted.OrderBy(x => x).SequenceEqual(current.OrderBy(x => x), StringComparer.OrdinalIgnoreCase)) StartWatchers();
     }
 
     // MARK: Menu

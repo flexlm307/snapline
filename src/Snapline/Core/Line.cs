@@ -272,6 +272,17 @@ public sealed class Line
         if (!Shell.Edit(item.Path)) System.Media.SystemSounds.Beep.Play();
     }
 
+    /// <summary>Open the photo in Sitch. Its Save writes back into the file, and the watcher shows the new version.</summary>
+    public void EditInSitch(Guid id)
+    {
+        var item = Find(id);
+        if (item is null) return;
+        item.Used = true;
+        // The untouched picture is kept, so Revert to original in Mark up still works.
+        try { Originals.Keep(item.Path); } catch (Exception e) { Log.Error($"Could not keep the original: {e.Message}"); }
+        if (!Sitch.Edit(item.Path)) System.Media.SystemSounds.Beep.Play();
+    }
+
     /// <summary>Copies a file by path, the same way a click on its card would.</summary>
     public void CopyPath(string path)
     {

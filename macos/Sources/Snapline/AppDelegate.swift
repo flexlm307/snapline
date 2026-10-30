@@ -14,6 +14,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     /// ignores the screenshot settings (macOS 27 renamed one), captures keep
     /// landing on the Desktop, and they still hang on the line.
     private var safetyWatcher: ScreenshotWatcher?
+    /// The folder Sitch saves captures to, when Sitch is on this Mac.
+    private var sitchWatcher: ScreenshotWatcher?
     /// Captures that only reach the clipboard (Cmd+Ctrl+Shift+4).
     private var clipboard: ClipboardWatcher!
     private var signalSources: [DispatchSourceSignal] = []
@@ -70,6 +72,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         watchMenuBarClicks()
 
         Markup.shared.onSaved = { [weak self] url in self?.line.reloadThumbnail(for: url) }
+        Sitch.onSaved = { [weak self] url in self?.line.reloadThumbnail(for: url) }
         line.onFall = { [weak self] item in self?.fall(item) }
 
         line.$items
@@ -141,6 +144,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func settingsChanged() {
         applyAppearance()
         clipboard.enabled = Settings.current.catchClipboard
+        startSitchWatcher()
         panel.placeOnScreen(panel.screen)
         line.look += 1
         // Rebuild the status item title, in case the language changed.
@@ -191,6 +195,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             safety.start()
             safetyWatcher = safety
         }
+        startSitchWatcher()
+    }
+
+    private func startSitchWatcher() {
+        let folder = (Settings.current.hangSitchCaptures ?? true) && Sitch.installed ? Sitch.saveFolder() : nil
+        if sitchWatcher?.folder.standardizedFileURL == folder?.standardizedFileURL { return }
+        sitchWatcher?.stop()
+        sitchWatcher = nil
+        guard let folder, folder.standardizedFileURL != watcher.folder.standardizedFileURL else { return }
+        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        let sitch = ScreenshotWatcher(
+            folder: folder,
+            onNew: { [weak self] url in self?.hangCapture(url) },
+            onChange: { [weak self] in self?.line.prune() })
+        sitch.start()
+        sitchWatcher = sitch
     }
 
     private func startClipboardWatcher() {

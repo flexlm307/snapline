@@ -73,6 +73,8 @@ public sealed class Settings
     public bool StayDownWhileUnused { get; set; }
     /// <summary>A photo dragged into an app leaves the line, as if it had been dropped into a folder.</summary>
     public bool TakeDownAfterDrag { get; set; }
+    /// <summary>Captures Sitch saves to its folder hang too, when Sitch is on this PC.</summary>
+    public bool HangSitchCaptures { get; set; } = true;
     /// <summary>Bring the line down when the pointer rests still at the top edge of the screen.</summary>
     public bool RevealAtTopEdge { get; set; } = true;
     /// <summary>How long the pointer rests at the edge before the line comes down, in seconds.</summary>
